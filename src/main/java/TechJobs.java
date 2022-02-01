@@ -1,16 +1,20 @@
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+
 import java.util.Scanner;
 
 /**
  * Created by LaunchCode
  */
-public class TechJobs {
 
+public class TechJobs {
     static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -19,6 +23,7 @@ public class TechJobs {
         columnChoices.put("location", "Location");
         columnChoices.put("position type", "Position Type");
         columnChoices.put("all", "All");
+
 
         // Top-level menu options
         HashMap<String, String> actionChoices = new HashMap<>();
@@ -77,7 +82,7 @@ public class TechJobs {
         Boolean validChoice = false;
         String[] choiceKeys = new String[choices.size()];
 
-        // Put the choices in an ordered structure so we can
+        // Put the choices in an ordered structure, so we can
         // associate an integer with each one
         int i = 0;
         for (String choiceKey : choices.keySet()) {
@@ -112,14 +117,33 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
 
-    // Print a list of jobs
-    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+    // take someJobs and make sure the size is not 0
+    // for statement hashMap
+    // Map.Entry
+    //System.out.print(jobInfo)
+    private static void printJobs(ArrayList<HashMap<String, String>> someJobs)
+    {
+        if (someJobs.size() < 1 )
+        {
+            System.out.println("No results");
+        } else
+        {
+            for (HashMap<String, String>  job:someJobs)
+            {
+                System.out.println("");
+                System.out.println("*******");
+                for (Map.Entry<String, String> list:job.entrySet())
+                {
+                    System.out.println(list.getKey() + ":" + list.getValue());
+                }
+                System.out.println("********");
+            }
+        }
     }
 }
