@@ -1,7 +1,7 @@
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-
+import java.util.Arrays;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -13,7 +13,8 @@ import java.util.List;
 /**
  * Created by LaunchCode
  */
-public class JobData {
+public class JobData
+{
 
     private static final String DATA_FILE = "src/main/resources/job_data.csv";
     private static boolean isDataLoaded = false;
@@ -27,14 +28,16 @@ public class JobData {
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
-    public static ArrayList<String> findAll(String field) {
+    public static ArrayList<String> findAll(String field)
+    {
 
         // load data, if not already loaded
         loadData();
 
         ArrayList<String> values = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
+        for (HashMap<String, String> row : allJobs)
+        {
             String aValue = row.get(field);
 
             if (!values.contains(aValue)) {
@@ -48,7 +51,8 @@ public class JobData {
         return values;
     }
 
-    public static ArrayList<HashMap<String, String>> findAll() {
+    public static ArrayList<HashMap<String, String>> findAll()
+    {
 
         // load data, if not already loaded
         loadData();
@@ -56,6 +60,11 @@ public class JobData {
         // Bonus mission; normal version returns allJobs
         return new ArrayList<>(allJobs);
     }
+
+
+
+
+
 
     /**
      * Returns results of search the jobs data by key/value, using
@@ -75,11 +84,13 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
+        for (HashMap<String, String> row : allJobs)
+        {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value))
+            {
                 jobs.add(row);
             }
         }
@@ -93,16 +104,31 @@ public class JobData {
      * @param value The search term to look for
      * @return      List of all jobs with at least one field containing the value
      */
-    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+    public static ArrayList<HashMap<String, String>> findByValue(String value)
+    {
 
         // load data, if not already loaded
         loadData();
+        ArrayList<HashMap<String, String>> searchedJobs = new ArrayList<>();
 
-        // TODO - implement this method
-        return null;
+        for (HashMap<String, String> row : allJobs)
+        {
+            for (String key : row.keySet()) {
+                String searchedStr = row.get(key);
+
+                if (searchedStr.toLowerCase().contains(value.toLowerCase())) {
+                    searchedJobs.add(row);
+
+
+
+                }
+            }
+        }
+        return searchedJobs;
     }
 
     /**
+     *
      * Read in data from a CSV file and store it in a list
      */
     private static void loadData() {
